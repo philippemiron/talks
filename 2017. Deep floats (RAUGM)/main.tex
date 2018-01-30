@@ -116,8 +116,7 @@
 
 % bibliography
 \usepackage[style=authoryear, natbib=true]{biblatex}
-\addbibresource{fot.bib}
-
+\addbibresource{oce.bib}
 % remove annoying biblatex bug/warning
 \usepackage{silence}
 \WarningFilter{biblatex}{Patching footnotes failed}
@@ -288,7 +287,7 @@ Note that $V_N := \{\mathbf{1}_{B_1}(x),\cdots,\mathbf{1}_{B_N}(x)\}$ is a discr
     \langle \bullet, \mathbf 1_{B_i}(x)\rangle = \frac{1}{\vol(B_i)}\int_{B_i} \bullet\, \mathbf 1_{B_i}(x)\,d^2x = \overline{(\bullet)}^{B_i}.
 \end{equation}
 
-Then, project $f(x)$ on the basis $V_N$, called Ulam basis \citep{ulam1960}:
+Then, project $f(x)$ on the basis $V_N$, called Ulam basis \parencite{ulam1960}:
 \begin{equation}
     \Pi_Nf(x) = \sum_1^N f_i \mathbf 1_{B_i}(x),\quad f_i = \langle f(x), \mathbf 1_{B_i}(x)\rangle = \overline{f(x)}^{B_i}
 \end{equation}
@@ -342,7 +341,7 @@ It is also of interest to identify when a distribution $\mathbf f$ is almost inv
     \mathbf f \approx \mathbf f\,P
 \end{equation}
 
-This is available from the \emph{eigenspectrum} inspection of $P$ \citep{Froyland-etal-12}.
+This is available from the \emph{eigenspectrum} inspection of $P$ \parencite{Froyland-etal-12}.
 \newline\newline
 If in the matrix $P$:
 \begin{itemize}
@@ -363,7 +362,7 @@ For $\lambda = 1$:
     \item left eigenvector of $P$ is the attractor
 \end{itemize}
 
-This motivates the idea that regions where trajectories converge and their basins of attraction are encoded in the eigenvectors of the transition matrix $P$ with eigenvalues ($\lambda \approx 1$) \citep{froyland2014well}.
+This motivates the idea that regions where trajectories converge and their basins of attraction are encoded in the eigenvectors of the transition matrix $P$ with eigenvalues ($\lambda \approx 1$) \parencite{froyland2014well}.
 }
 
 
@@ -400,7 +399,7 @@ Eigenvectors associated with $\lambda_3=0.9832$ and $\lambda_5=0.9712$.
 }
 }
 
-\frame{\frametitle{Lagrangian geography of the deep Golf of Mexico}
+\frame{\frametitle{Lagrangian geography of the deep Gulf of Mexico}
 
 Combination of the basins of attraction from the top right eigenvectors (by thresholding).
 \begin{figure}
@@ -423,7 +422,7 @@ From incompressibility, accumulation can be used to approximate vertical velocit
 The vertical component is about $\sim 1\%$ of the maximum horizontal velocity ($u_{max} = 0.2739$m/s, $v_{max} = 0.1790$m/s).
 }
 
-\frame{\frametitle{Comparison with experimental data \citep{ledwell2016dispersion}}
+\frame{\frametitle{Comparison with experimental data \parencite{ledwell2016dispersion}}
 
 \only<1>{
 Tracer evolution from the infamous Deepwater Horizon oil spill.

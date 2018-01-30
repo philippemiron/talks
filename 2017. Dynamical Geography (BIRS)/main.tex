@@ -44,7 +44,7 @@
 %\usetheme{Singapore}
 %\usetheme{Szeged}
 %\usetheme{Warsaw}
-\usetheme[]{metropolis}
+%\usetheme[]{metropolis}
 
 \title{A dynamical geography of the Gulf of Mexico}
 
@@ -83,7 +83,7 @@
 % If you have a file called "university-logo-filename.xxx", where xxx
 % is a graphic format that can be processed by latex or pdflatex,
 % resp., then you can add a logo as follows:
-%\pgfdeclareimage[height=1.5cm]{logo}{figures/GoMRi.png}
+%\pgfdeclareimage[height=1.5cm]{logo}{GoMRi.png}
 %\logo{\pgfuseimage{logo}}
 
 % Delete this, if you do not want the table of contents to pop up at
@@ -95,30 +95,50 @@
 %  \end{frame}
 %}
 
+% graphic
+\graphicspath{{"2017. dynamical geography (birs)/figures/"}}
+%\graphicspath{{""}}
+
 % titlepage logo
 \titlegraphic{
 \begin{tikzpicture}[overlay, remember picture]
 \node[at=(current page.south west), anchor=south west] {%
- \includegraphics[width=.35\textwidth]{figures/carthe.png} 
+ \includegraphics[width=.35\textwidth]{carthe.png} 
 };
 \node[at=(current page.south east), anchor=south east] {
- \includegraphics[width=.3\textwidth]{figures/GoMRi.png} 
+ \includegraphics[width=.3\textwidth]{GoMRi.png} 
 };
 \end{tikzpicture}
 }
 
-
-% justify text in all frame
-\usepackage{ragged2e}
-\usepackage{etoolbox}
-\usepackage{tikz}
-\apptocmd{\frame}{}{\justifying}{}
+% bibliography
+\usepackage[style=authoryear, natbib=true]{biblatex}
+\addbibresource{oce.bib}
+% remove annoying biblatex bug/warning
+\usepackage{silence}
+\WarningFilter{biblatex}{Patching footnotes failed}
 
 % some definitions
-\usepackage[round]{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{bbold}
+\usepackage{ragged2e} % justify text in all frame
+\apptocmd{\frame}{}{\justifying}{}
+\usepackage{etoolbox}
+\usepackage{tikz}
 \usepackage{subfig}
 \usepackage{multicol}
 \usepackage{siunitx}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{tikz,pgfplots}
+\pgfplotsset{compat=1.12}
+
+% Definitions.
+\def\vol{\mathop{\rm area}}
 
 \newcommand{\PF}{\mathcal{P}}
 \newcommand{\ia}{\textit{a}}
@@ -182,7 +202,7 @@ Using \textbf{only} drifters data (trajectories) in the Gulf of Mexico (\gom):
 \end{itemize}
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=\textwidth]{figures/fig03}
+  \includegraphics[width=\textwidth]{fig03}
   \label{fig:gom_bins}
 \end{figure}
 
@@ -197,7 +217,7 @@ Using \textbf{only} drifters data (trajectories) in the Gulf of Mexico (\gom):
     \item Has a first step, we will use all of the available data together and we will try to extract the average dynamics of the Gulf of Mexico.
 }
 
-\frame{\frametitle{Biodegradable drifters \citep[][University of Miami]{novelliDrift2017}}
+\frame{\frametitle{Biodegradable drifters \parencite[][University of Miami]{novelli2017biodegradable}}
 
 \begin{itemize}
     \item 1000 drifters deployed during the LAgrangian Submesoscale  ExpeRiment (LASER) in 2016
@@ -207,7 +227,7 @@ Using \textbf{only} drifters data (trajectories) in the Gulf of Mexico (\gom):
 \end{itemize}
 \begin{figure}[!ht]
   \centering
-  \includegraphics[angle=180,width=0.5\textwidth]{figures/Drifters}
+  \includegraphics[angle=180,width=0.5\textwidth]{Drifters}
 \end{figure}
 }
 
@@ -218,7 +238,7 @@ Using \textbf{only} drifters data (trajectories) in the Gulf of Mexico (\gom):
 
 \section[Transfer Operator theory]{Theory}
 
-\frame{\frametitle{Approximation of an attractor \citep{dellnitz1997almost,Froyland-01}}
+\frame{\frametitle{Approximation of an attractor \parencite{dellnitz1997almost,Froyland-01}}
 
 \begin{equation*}
     \text{\underline{H\'{e}non Map}: } (x_1, x_2) \to \left(1- 1.4 x_1^2 + 0.3x_1x_2\right)
@@ -230,7 +250,7 @@ Using \textbf{only} drifters data (trajectories) in the Gulf of Mexico (\gom):
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.35\textwidth]{figures/henon-solution.png}
+  \includegraphics[width=0.35\textwidth]{henon-solution.png}
 \end{figure}
 
 \vspace{-0.7cm}
@@ -238,9 +258,9 @@ Using \textbf{only} drifters data (trajectories) in the Gulf of Mexico (\gom):
 \vspace{-0.6cm}
 \begin{figure}
     \centering
-    \subfloat{{\includegraphics[width=0.35\textwidth]{figures/henon-attr.png} }}%
+    \subfloat{{\includegraphics[width=0.35\textwidth]{henon-attr.png} }}%
     \qquad
-    \subfloat{{\includegraphics[width=0.35\textwidth]{figures/henon-basin.png} }}%
+    \subfloat{{\includegraphics[width=0.35\textwidth]{henon-basin.png} }}%
 \end{figure}
 }
 
@@ -269,15 +289,15 @@ For all the points $\in X$, if the map $T$ is area preserving, the end result ca
 \only<1->{
 \begin{figure}[!ht]
   \centering
-  \includegraphics[scale=0.9]{figures/fig02}
+  \includegraphics[scale=0.9]{fig02}
   \label{fig:push_density}
 \end{figure}
 }
 }
 
-\frame{\frametitle{Transition matrix \citep{froyland2001extracting}}
+\frame{\frametitle{Transition matrix \parencite{froyland2001extracting}}
 \begin{itemize}
-    \item Probabilistic approach known as Ulam's method \citep{ulam1960}
+    \item Probabilistic approach known as Ulam's method \parencite{ulam1960}
     \item Subdivision of the domain in boxes ($B_1, \cdots, B_n$) 
     \item From short-time trajectories, we approximate the probability to go from box $i$ to box $j$:
 \end{itemize}
@@ -294,7 +314,7 @@ by counting the number of particles (drifters) in $B_i$ that are mapped into $B_
     \item From short-time trajectories and for each pair of box, we approximate the probability to go from one box to the other by counting the number of particles inside the first one that are map to the second one, divided by number of particle in the first box.
 }
 
-\frame{\frametitle{Markov Chain and eigenvectors method \citep{froyland2014well}}
+\frame{\frametitle{Markov Chain and eigenvectors method \parencite{froyland2014well}}
 \begin{itemize}
    \item $\PF$ defines a Markov Chain of the dynamics
    \item Using initial density $f_0$ $\to$ future distribution
@@ -322,7 +342,7 @@ by counting the number of particles (drifters) in $B_i$ that are mapped into $B_
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.9\textwidth]{figures/fig01}
+  \includegraphics[width=0.9\textwidth]{fig01}
 \end{figure}
 
 \only<1>{
@@ -393,7 +413,7 @@ by counting the number of particles (drifters) in $B_i$ that are mapped into $B_
 
 All drifters trajectory start at the same time (Autonomous system) and we construct the transition matrix by looking where drifters end up \SI{2}{days} later (bins size, data).
    \begin{figure}
-      \includegraphics[width=0.7\linewidth]{figures/fig03b}
+      \includegraphics[width=0.7\linewidth]{fig03b}
     \end{figure}
 }
 
@@ -432,7 +452,7 @@ All drifters trajectory start at the same time (Autonomous system) and we constr
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=0.8\linewidth]{figures/fig04b}
+  \includegraphics[width=0.8\linewidth]{fig04b}
   \label{fig:tarjan}
 \end{figure}
 }
@@ -447,7 +467,7 @@ All drifters trajectory start at the same time (Autonomous system) and we constr
 \textbf{Existence of a westward mean flow}: similar to results presented by \cite{sturges2016mean} from SSH data
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig05b}
+  \includegraphics[width=\linewidth]{fig05b}
   \label{fig:limiting_dist}
 \end{figure}
 }
@@ -461,7 +481,7 @@ All drifters trajectory start at the same time (Autonomous system) and we constr
 \frame{\frametitle{Top left eigenvectors}
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig06}
+  \includegraphics[width=\linewidth]{fig06}
   \label{fig:r_eig}
 \end{figure}
 }
@@ -470,7 +490,7 @@ All drifters trajectory start at the same time (Autonomous system) and we constr
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig07}
+  \includegraphics[width=\linewidth]{fig07}
   \label{fig:l_eig}
 \end{figure}
 
@@ -482,7 +502,7 @@ All drifters trajectory start at the same time (Autonomous system) and we constr
 For the almost invariant set associated with $\lambda_6 = 0.99881$:
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig08}
+  \includegraphics[width=\linewidth]{fig08}
   \label{fig:r_to_l}
 \end{figure}
 }
@@ -497,7 +517,7 @@ For the almost invariant set associated with $\lambda_6 = 0.99881$:
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=\linewidth]{figures/fig09}
+  \includegraphics[width=\linewidth]{fig09}
   \label{fig:dyngeo}
 \end{figure}
 }
@@ -507,7 +527,7 @@ For the almost invariant set associated with $\lambda_6 = 0.99881$:
 \textbf{Distance of oil rigs from the coast is increasing in recent years..}
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=\linewidth]{figures/oilrigs/fig}
+  \includegraphics[width=\linewidth]{oilrigs/fig}
   \label{fig:oilrigs}
 \end{figure}
 }
@@ -520,7 +540,7 @@ For the almost invariant set associated with $\lambda_6 = 0.99881$:
 \begin{itemize}
     \item Identified \textbf{almost limiting distributions} and corresponding \textbf{basins of attraction} from the inspection of the eigenvectors
     
-    \item Supported by independent observations of a westward mean flow \citep{sturges2016mean}
+    \item Supported by independent observations of a westward mean flow \parencite{sturges2016mean}
     
     \item Ability to push-forward a density to "predict" the dispersion (e.g. after an oil spill or to plan a drifters experiment) 
 \end{itemize}
@@ -540,15 +560,13 @@ Open questions:
 }
 
 \frame[allowframebreaks]{\frametitle{References}
-\bibliographystyle{abbrvnat}
 
 % remove References title
 \begingroup
 \renewcommand{\section}[2]{}%
 % add cited papers
-\bibliography{references,fot}
+\printbibliography[heading=none]
 \endgroup
-
 }
 
 \end{document}
