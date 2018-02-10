@@ -9,7 +9,7 @@
 % package/program, I grant the extra permission to freely copy and
 % modify this file as you see fit and even to delete this copyright
 % notice.
-\documentclass[show notes]{beamer}
+\documentclass[notes]{beamer}
 % There are many different themes available for Beamer. A comprehensive
 % list with examples is given here:
 % http://deic.uab.es/~iblanes/beamer_gallery/index_by_theme.html
@@ -49,17 +49,16 @@
 % A subtitle is optional and this may be deleted
 %\subtitle{Optional Subtitle}
 
-\author{Philippe Miron\inst{1},  Francisco J. Beron-Vera\inst{1}, Mar\'ia J. Olascoaga\inst{1} and Gary Froyland\inst{2}}
-
+\author{Philippe Miron\inst{1},  Francisco J. Beron-Vera\inst{1}, Mar\'ia J. Olascoaga\inst{1}, J.\ Sheinbaum\inst{2}, P.\ P\'erez-Brunius\inst{2} and Gary Froyland\inst{3}}
 \institute
 {
   \inst{1}%
   RSMAS University of Miami, Miami, USA
-  %\and
-  %\inst{2}%
-  %RSMAS/OCE University of Miami, Miami, USA
   \and
-  \inst{2}%
+  \inst{2}
+  CICESE, Ensenada, Mexico
+  \and
+  \inst{3}%
   University of New South Wales, Sydney, Australia
   }
 % - Use the \inst command only if there are several affiliations.
@@ -101,14 +100,14 @@
 % titlepage logo
 \titlegraphic{
 \begin{tikzpicture}[overlay, remember picture]
+%\node[at=(current page.south west), anchor=south west] {%
+% \includegraphics[height=.10\textwidth]{carthe.png} 
+%};
 \node[at=(current page.south west), anchor=south west] {%
- \includegraphics[height=.10\textwidth]{carthe.png} 
-};
-\node[at=(current page.south), anchor=south] {%
- \includegraphics[height=.13\textwidth]{cigom.jpg} 
+ \includegraphics[height=.18\textwidth]{cigom.jpg} 
 };
 \node[at=(current page.south east), anchor=south east] {
- \includegraphics[height=.10\textwidth]{um-rsmas.png}
+ \includegraphics[height=.14\textwidth]{um-rsmas.png}
 };
 \end{tikzpicture}
 }
@@ -140,8 +139,8 @@
 \pgfplotsset{compat=1.12}
 
 % Definitions.
-\def\vol{\mathop{\rm area}}
-
+\DeclareMathOperator{\area}{area}%
+\DeclareMathOperator{\Id}{Id}%
 \newcommand{\PF}{\mathcal{P}}
 \newcommand{\ia}{\textit{a}}
 \newcommand{\ib}{\textit{b}}
@@ -152,6 +151,7 @@
 \let\vaccent=\v 
 \renewcommand{\v}[1]{\ensuremath{\mathbf{#1}}} 
 \newcommand{\minus}{\scalebox{0.5}[1.0]{$-$}}
+\newcommand{\dif}{\ensuremath{\text{d}}}
 
 % Let's get started
 \begin{document}
@@ -183,14 +183,16 @@ Over the last twenty five years, many satellite-tracked surface drifters sampled
 \frame{\frametitle{Introduction}
 In contrast, very few studies were aimed at the characterization of the deep water global circulation. 
 \newline\newline
-RAFOS experiments sponsored by the Bureau of Ocean Energy Management (July 2011 - May 2015) courtesy Alexis Lugo Fernandez:
+RAFOS experiment sponsored by the Bureau of Ocean Energy Management (July 2011 - May 2015):
 \begin{itemize}
+\item 4-year-long program (floats $\sim 2$-y mission)
 \item 121 floats at 1500\,m
+\item 6 profiling floats with RAFOS technology at 1500\,m
 \item 31 floats at 2500\,m
-\item 4-year mission (floats $\sim 2$-y mission and are redeployed)
+
 \end{itemize}
 
-\textit{Publicly available data sets compiled by WOCE Subsurface Float Data Assembly Center (WFDAC)}\footnote{\url{http://www.aoml.noaa.gov/phod/float_traj/data.php}}
+\textit{Publicly available data sets compiled by WOCE Subsurface Float Data Assembly Center (WFDAC).}\footnote{\url{http://www.aoml.noaa.gov/phod/float_traj/data.php}}
 }
 
 \section{Objectives}
@@ -199,127 +201,46 @@ RAFOS experiments sponsored by the Bureau of Ocean Energy Management (July 2011 
 Using floats data (trajectories) in the abyssal Gulf of Mexico (\gom):
 \begin{itemize}
     \item subdivide the deep \gom\ into regions with similar dynamics;
-    \item identify sinks and sources (attractors and basins of attraction);
+    \item identify almost invariant region and their respective timescale;
     \item predict transport of \textit{passive tracers}.
 \end{itemize}
 }
 
-% Section and subsections will appear in the presentation overview
-% and table of contents.
-\frame{\frametitle{Theory: flowmap $F$}
-Given the drifter paths, we wish to access the map $x \mapsto F(x)$ that determines how the drifters change positions. 
+\frame{\frametitle{Theory: transfer operator $\mathcal{P}$}
+We want to predict at a time $T$ the dispersion of a an initial density $\rho(x,0) = f(x)$.
 \newline\newline
-If the ocean flow was stationary in some statistical sense, then the velocity could be express has $v(x)$.  If this case, we could simply solve the ODE $\dot{x} = v(x)$ to get $F$, the flow map, and \emph{move around} any function, such has a tracer distribution $f(x)$.
+This is given by the push forward of f(x),
+\begin{equation}
+    \rho(x,T) = \int_X f(y) k(x,y) \dif y = \mathcal{P}\,f(x)
+\end{equation}
+under the action of an advection-diffusion process that can be described via a bounded stochastic kernel $k$.
+
 }
+
+\note{Note that it is independant of initial T}
 
 \frame{\frametitle{Theory: transfer operator $\mathcal{P}$}
-This is done by composing $f$ with $F^{-1}$ and it defines a transfer operator $\mathcal{P}$ as the linear operator such that
-\begin{equation}
-    \mathcal{P}\!f(x) = f \circ F^{-1}(x).
-\end{equation}
 
-\only<2>{
-Why $F^{-1}$?
+\textcolor{red}{clean this}
+A discretization of the transfer operator can be attained using a Galerkin approximation referred to as Ulam's method\cite{ulam1960}. This involves partitioning the domain $X$ into a grid of $N$ connected boxes $\{B_1,\dotsc,B_N\}$ and projecting functions in $L^1(X)$ onto a finite-dimensional space approximating $L^1(X)$ and spanned by indicator functions on the grid.
 
-Example, if $F$ moves 2 units to the right the distribution $f(x)$.
-\begin{figure}[!ht]
-\centering
-\begin{tikzpicture}
-% plot curve at t0
-\begin{axis}[
-width=4.5cm,
-height=4cm,
-xmin=0, xmax=5,
-ymin=-1.25, ymax=1.25,
-ylabel={$f(x)$},
-xlabel={$x (t_0)$},
-axis y line=right,
-axis x line=bottom,
-axis line style={-}
-]
-\addplot[domain=0:5,thick]{sin(deg(x))};
-\draw[dashed,color=red] (0,-1) -- (0,1);
-\end{axis}
-\draw [<-] (0,2.4) -- (0.5, 2.7) node[right] {$F^{-1}(x=2)$};
-\end{tikzpicture}\hspace{0.25cm}
-\begin{tikzpicture}
-% plot curve at t0+t
-\begin{axis}[
-width=4.5cm,
-height=4cm,
-xmin=0, xmax=5,
-ymin=-1.25, ymax=1.25,
-ylabel={$\mathcal{P}f(x)$},
-xlabel={$x (t > t_0)$},
-axis y line=right,
-axis x line=bottom,
-axis line style={-}
-]
-\addplot[domain=0:5,thick]{sin(deg(x-2))};
-\draw[dashed,color=red] (2,-1) -- (2,1);
-\end{axis}
-\end{tikzpicture}
-\end{figure}
+We assume from now on that the grid is regular, i.e., $\area(B_i)
+= \area(B_j)$ for all $i\neq j$.
 }
 
-}
 
-\frame{\frametitle{Theory: transfer operator $\mathcal{P}$}
-For $F$ representing a non-autonomous flow as above, $\mathcal P
-\!f(x)$ is the solution of
-\begin{equation}
-  \partial_t\rho + v\cdot\nabla\rho = 0,\quad
-  \rho(x,t = 0) = f(x).
-\end{equation}
 
-In our case, \underline{$F$ is unknown and we only have access to trajectories}. We will use a discrete method to approximate $\mathcal{P}$.
-}
 
-\frame{\frametitle{Theory: transition matrix}  
-Partition the domain into equal-size bins $\{B_i,\cdots,B_N\}$ (a regular grid) and consider the indicator function of set $B_i$: 
- \begin{equation} 
-	\mathbf{1}_{B_i}(x) =
-  \begin{cases}
-    1  & \text{if } x \in B_i,\\
-    0  & \text{if } x \notin B_i.
-  \end{cases}
-\end{equation} 
-
-Note that $V_N := \{\mathbf{1}_{B_1}(x),\cdots,\mathbf{1}_{B_N}(x)\}$ is a discrete orthornormal basis w.r.t. the inner product
-\begin{equation}
-    \langle \bullet, \mathbf 1_{B_i}(x)\rangle = \frac{1}{\vol(B_i)}\int_{B_i} \bullet\, \mathbf 1_{B_i}(x)\,d^2x = \overline{(\bullet)}^{B_i}.
-\end{equation}
-
-Then, project $f(x)$ on the basis $V_N$, called Ulam basis \citep{ulam1960}:
-\begin{equation}
-    \Pi_Nf(x) = \sum_1^N f_i \mathbf 1_{B_i}(x),\quad f_i = \langle f(x), \mathbf 1_{B_i}(x)\rangle = \overline{f(x)}^{B_i}
-\end{equation}
-where $\Pi_N$ is the projector.
-}
 
 \frame{\frametitle{Theory: how to construct the transition matrix}  
-In a similar manner one can project $\mathcal P$ on $V_N$:
-\begin{align}
-(\Pi_N\mathcal{P})_{ij} &=  \frac{1}{\vol(B_j)}
-\int_{B_j} \mathcal P \mathbf 1_{B_i}(x) \cdot
-\mathbf 1_{B_j}(x)\,d^2x\nonumber\\ 
-&= \frac{\vol(B_i \cap F^{-1}(B_j))}{\vol(B_i)} = P_{ij}.
-\end{align}
-The entries of $P$ can be viewed as transitional probabilities of moving from $B_i$ to $B_j$ (Markov Chain with bins $\equiv$ states):
+
+By considering a sufficiently large number of initial conditions we can estimate the entries:
 \begin{equation}
-   P_{ij} = \frac{\#\text{ of particles in }B_i\text{ that are mapped to }B_j}{\#\text{ of particles in }B_i}.
+   P_{ij} = \frac{\# x \text{ in }B_i\text{ at any time } t \text{ and in }B_j \text{ at  } t+T}{\#x\text{ in }B_i \text{ at any time }t}.
   \label{eq:Pnum}
 \end{equation}
-}
 
-\frame{\frametitle{Theory: transition matrix}  
-$P_{ij}$ gives us the action of $F$ at a coarse-grained level given by the partition. This introduces diffusion proportional to the size of $B_i$ and is solution of: 
-\begin{equation}
-  \partial_t\rho + v\cdot\nabla\rho =
-  D\nabla^2\rho \quad \text{with }
-  \rho(x,t = 0) = f(x),
-\end{equation}
-with $D \propto \vol(B_i)$.
+The entries of $P$ can be viewed as transitional probabilities of moving from $B_i$ to $B_j$. It defines a \textbf{Markov Chain} (with bins $\equiv$ states) of the dynamics.
 }
 
 \frame{\frametitle{Application of the transition matrix}
@@ -403,16 +324,48 @@ Eigenvectors associated with $\lambda_3=0.9832$ and $\lambda_5=0.9712$.
 
 Combination of the basins of attraction from the top right eigenvectors (by thresholding).
 \begin{figure}
-  \includegraphics[width=8.5cm]{geogomdeep-fig09.jpg}
+  \includegraphics[width=\textwidth]{geogomdeep-fig09.jpg}
 \end{figure}
 
 Residence timescale: 7-y left (black) and right (purple), 1-y middle (pink), 0.5-y gyre (yellow) and bottom right (orange)
 }
 
+\frame{\frametitle{Residence time}
+\begin{figure}
+  \includegraphics[width=\textwidth]{geogomdeep-fig09.jpg}
+\end{figure}
+}
+
+
+\frame{\frametitle{Connectivity matrix (1, 2, 4 weeks)}
+\begin{figure}
+  \only<1>{
+  \includegraphics[width=0.9\textwidth]{1wconnection.png}
+  }
+  \only<2>{
+  \includegraphics[width=0.9\textwidth]{2wconnection.png}
+  }
+  \only<3>{
+  \includegraphics[width=0.9\textwidth]{4wconnection.png}
+  }
+\end{figure}
+}
+
+\frame{\frametitle{Mean expected hitting time}
+The time $\tau$ for a trajectory in box $B_i$ to move out of $A$, also known also as the mean time to hit the complement of $A$ \citep{Norris-98}.
+\begin{equation} 
+  (\Id - P|_A)\tau/T = \mathbf{1},
+  \label{eq:tau}
+\end{equation} 
+\begin{figure}
+    \includegraphics[width=0.7\textwidth]{hitting_time.png}
+\end{figure}
+}
+
 \frame{\frametitle{Upwelling and Downwelling}
 From incompressibility, accumulation can be used to approximate vertical velocity $w$:
 \begin{equation}
-    h_{t_1} = h_{t_0} \frac{\vol_{t_0}}{\vol_{t_1}} \quad w \sim \frac{h_{t_1} - h_{t_0}}{dt}. 
+    h_{t_1} = h_{t_0} \frac{\area_{t_0}}{\area_{t_1}} \quad w \sim \frac{h_{t_1} - h_{t_0}}{dt}. 
 \end{equation}
 
 \begin{figure}
@@ -443,19 +396,21 @@ Tracer evolution from the infamous Deepwater Horizon oil spill.
 \frame{\frametitle{Argo floats}
  
 \only<1>{
-\begin{figure}
-  \includegraphics[width=\textwidth]{geogomdeep-fig12.jpg}
-  \caption{Argo floats}
-\end{figure}
-}
-
-\only<2>{
 
 Talk about the entrance ?! No floats exit ?
 \begin{figure}
   \includegraphics[width=10cm]{geogomdeep-fig13.jpg}
 \end{figure}
 }
+
+\only<2>{
+\begin{figure}
+  \includegraphics[width=\textwidth]{geogomdeep-fig12.jpg}
+  \caption{Argo floats}
+\end{figure}
+}
+
+
 }
 
 
@@ -463,7 +418,9 @@ Talk about the entrance ?! No floats exit ?
 \section{Conclusion}
 \frame{\frametitle{Thank you!}
 
-Paper is currently in review.
+Also a special thanks to Julio Paula Pérez Brunius
+
+Paper will be submit this week (we are hoping) !
 
 Future plans:
 \begin{itemize}
