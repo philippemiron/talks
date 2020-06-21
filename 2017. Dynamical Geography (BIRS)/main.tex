@@ -97,7 +97,7 @@
 
 % graphic
 \graphicspath{{"2017. dynamical geography (birs)/figures/"}}
-%\graphicspath{{""}}
+%\graphicspath{{"figures/"}}
 
 % titlepage logo
 \titlegraphic{
@@ -113,7 +113,7 @@
 
 % bibliography
 \usepackage[style=authoryear, natbib=true]{biblatex}
-\addbibresource{oce.bib}
+\addbibresource{fot.bib}
 % remove annoying biblatex bug/warning
 \usepackage{silence}
 \WarningFilter{biblatex}{Patching footnotes failed}
@@ -217,7 +217,7 @@ Using \textbf{only} drifters data (trajectories) in the Gulf of Mexico (\gom):
     \item Has a first step, we will use all of the available data together and we will try to extract the average dynamics of the Gulf of Mexico.
 }
 
-\frame{\frametitle{Biodegradable drifters \parencite[][University of Miami]{novelli2017biodegradable}}
+\frame{\frametitle{Biodegradable drifters \parencite[][University of Miami]{Novelli-etal-17}}
 
 \begin{itemize}
     \item 1000 drifters deployed during the LAgrangian Submesoscale  ExpeRiment (LASER) in 2016
@@ -238,7 +238,7 @@ Using \textbf{only} drifters data (trajectories) in the Gulf of Mexico (\gom):
 
 \section[Transfer Operator theory]{Theory}
 
-\frame{\frametitle{Approximation of an attractor \parencite{dellnitz1997almost,Froyland-01}}
+\frame{\frametitle{Approximation of an attractor \parencite{Dellnitz-etal-97}}
 
 \begin{equation*}
     \text{\underline{H\'{e}non Map}: } (x_1, x_2) \to \left(1- 1.4 x_1^2 + 0.3x_1x_2\right)
@@ -297,7 +297,7 @@ For all the points $\in X$, if the map $T$ is area preserving, the end result ca
 
 \frame{\frametitle{Transition matrix \parencite{froyland2001extracting}}
 \begin{itemize}
-    \item Probabilistic approach known as Ulam's method \parencite{ulam1960}
+    \item Probabilistic approach known as Ulam's method \parencite{Ulam-79}
     \item Subdivision of the domain in boxes ($B_1, \cdots, B_n$) 
     \item From short-time trajectories, we approximate the probability to go from box $i$ to box $j$:
 \end{itemize}
@@ -536,7 +536,6 @@ For the almost invariant set associated with $\lambda_6 = 0.99881$:
 \section[Conclusion]{Conclusion}
 
 \frame{\frametitle{Conclusion}
-
 \begin{itemize}
     \item Identified \textbf{almost limiting distributions} and corresponding \textbf{basins of attraction} from the inspection of the eigenvectors
     
@@ -544,10 +543,10 @@ For the almost invariant set associated with $\lambda_6 = 0.99881$:
     
     \item Ability to push-forward a density to "predict" the dispersion (e.g. after an oil spill or to plan a drifters experiment) 
 \end{itemize}
+
 }
 
 \frame{\frametitle{Thank you!}
-
 Open questions:
 \begin{itemize}
     \item What is the influence of the drifters' type on the transition matrix ?
@@ -555,12 +554,9 @@ Open questions:
     \item How does it compare to high number of artificial drifters or simply density advection using a numerical velocity field or a global circulation model?
     \item How to "easily" extract the different sets ?
 \end{itemize}
-
-
 }
 
 \frame[allowframebreaks]{\frametitle{References}
-
 % remove References title
 \begingroup
 \renewcommand{\section}[2]{}%
